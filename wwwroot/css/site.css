@@ -1,0 +1,96 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: #333;
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #27ae60 !important;
+}
+
+.main-container {
+    min-height: 80vh;
+}
+
+.supermarket-card {
+    background: #fff;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.supermarket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.supermarket-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    transform: scale(1.05);
+    color: white;
+}
+
+.btn-danger {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(86, 171, 47, 0.3);
+}
+
+.hero-section h1 {
+    font-weight: 700;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #e67e22;
+    font-weight: 700;
+}

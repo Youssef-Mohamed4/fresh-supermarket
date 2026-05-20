@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="hero-section">
+        <h1 class="display-4">Welcome to Fresh Supermarket!</h1>
+        <p class="lead">Your one-stop shop for daily fresh groceries and essentials.</p>
+        <a class="btn btn-light btn-lg mt-3" asp-controller="Account" asp-action="Register">Join Us Today</a>
+    </div>
+}
+else
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="hero-section" style="background: linear-gradient(135deg, #f39c12 0%, #d35400 100%);">
+            <h1 class="display-4">Admin Dashboard</h1>
+            <p class="lead">Manage products, view stock, and keep the supermarket running.</p>
+            <a class="btn btn-light btn-lg mt-3" asp-controller="Products" asp-action="Index">Manage Products</a>
+        </div>
+    }
+    else
+    {
+        <div class="hero-section">
+            <h1 class="display-4">Welcome back, @User.Identity.Name!</h1>
+            <p class="lead">Check out our latest fresh products and daily deals.</p>
+            <a class="btn btn-light btn-lg mt-3" asp-controller="Products" asp-action="Index">Start Shopping</a>
+        </div>
+    }
+}

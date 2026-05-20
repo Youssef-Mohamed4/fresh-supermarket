@@ -1,0 +1,86 @@
+@model IEnumerable<WebProject.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h2 class="text-primary fw-bold">Fresh Products</h2>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-primary">+ Add New Product</a>
+    }
+</div>
+
+<div class="row" id="product-list">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 mb-4" id="product-@item.Id">
+            <div class="supermarket-card h-100 d-flex flex-column p-4">
+                <div class="flex-grow-1 d-flex flex-column">
+                    <h5 class="fw-bold mb-2">@item.Name</h5>
+                    <p class="text-muted small mb-3">@item.Description</p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center mb-3">
+                        <span class="product-price">$@item.Price.ToString("0.00")</span>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="mt-2 d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm flex-grow-1">Edit</a>
+                            <button onclick="deleteProduct(@item.Id)" class="btn btn-outline-danger btn-sm flex-grow-1">Delete</button>
+                        </div>
+                    }
+                    else if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <div class="mt-2">
+                            <button onclick="addToCart(@item.Id)" class="btn btn-primary w-100">Add to Cart</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                // AJAX Delete
+                $.ajax({
+                    url: '/Products/Delete/' + id,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result.success) {
+                            $('#product-' + id).fadeOut(500, function() {
+                                $(this).remove();
+                            });
+                        } else {
+                            alert(result.message || 'Error deleting product.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error occurred during request.');
+                    }
+                });
+            }
+        }
+
+        function addToCart(id) {
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                data: { productId: id },
+                success: function (result) {
+                    if (result.success) {
+                        alert('Product added to cart!');
+                    } else {
+                        alert(result.message || 'Error adding to cart.');
+                    }
+                },
+                error: function () {
+                    alert('Error occurred during request.');
+                }
+            });
+        }
+    </script>
+}
